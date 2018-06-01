@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,33 +13,41 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             using (var context = new LojaContext())
             {
-                var serviceProvider = context.GetInfrastructure<IServiceProvider>();
-                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
-                loggerFactory.AddProvider(SqlLoggerProvider.Create());
+                context.Produtos.ToList();
+                var  entityEntries = context.ChangeTracker.Entries();
 
-                var produtos = context.Produtos.ToList();
-                foreach (var produto in produtos)
+                ExibeEstadoProduto(entityEntries);
+
+                var p1 = new Produto
                 {
-                    Console.WriteLine(produto.Nome);
-                }
+                    Nome = "Novo produto"
+                    ,
+                    Preco = 78.8
+                    ,
+                    Categoria = "Sem categoria"
+                };
 
-                Console.WriteLine("\n\n===============================\n\n");
+                context.Add(p1);
 
-                foreach (var item in context.ChangeTracker.Entries())
-                {
-                    Console.WriteLine(item.State);
-                }
+                ExibeEstadoProduto(entityEntries);
 
-                Console.WriteLine("\n\n===============================\n\n");
+                context.SaveChanges();
 
-                var p1 = produtos.First();
-                p1.Nome = "Alterado";
-                context.Update(p1);
-                
+                ExibeEstadoProduto(entityEntries);
+
             }
+            
+            Console.ReadKey();
+        }
 
-
-                Console.ReadKey();
+        private static void ExibeEstadoProduto(IEnumerable<EntityEntry> entityEntries)
+        {
+            Console.WriteLine("\n=========================================\n");
+            foreach (var item in entityEntries)
+            {
+                Console.WriteLine(item.State + " - " + item.Entity.ToString());
+            }
+            
         }
     }
 }
