@@ -127,6 +127,15 @@
   <ItemGroup>
     <Compile Include="IProdutoDAO.cs" />
     <Compile Include="LojaContext.cs" />
+    <Compile Include="Migrations\20180601204259_Inicial.cs" />
+    <Compile Include="Migrations\20180601204259_Inicial.designer.cs">
+      <DependentUpon>20180601204259_Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20180601204505_Unidade.cs" />
+    <Compile Include="Migrations\20180601204505_Unidade.designer.cs">
+      <DependentUpon>20180601204505_Unidade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\LojaContextModelSnapshot.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="ProdutoDAOEntity.cs" />
     <Compile Include="Program.cs" />
