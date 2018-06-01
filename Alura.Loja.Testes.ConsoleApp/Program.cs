@@ -13,6 +13,33 @@ namespace Alura.Loja.Testes.ConsoleApp
             //GravarUsandoAdoNet();
             //GravarUsandoEntity();
             RecuperarProdutos();
+            ExcluirProdutos();
+        }
+
+        private static void ExcluirProdutos()
+        {
+            using (var context = new LojaContext())
+            {
+                using (var contextTransaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var produtos = context.Produtos.ToList();
+
+                        foreach (var produto in produtos)
+                        {
+                            context.Produtos.Remove(produto);
+                        }
+
+                        context.SaveChanges();
+                        contextTransaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        contextTransaction.Rollback();
+                    }
+                }
+            }
         }
 
         private static void RecuperarProdutos()
