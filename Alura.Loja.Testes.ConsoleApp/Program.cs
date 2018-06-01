@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +15,10 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             using (var context = new LojaContext())
             {
+                var serviceProvider = context.GetInfrastructure<IServiceProvider>();
+                var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+                loggerFactory.AddProvider(SqlLoggerProvider.Create());
+
                 var produtos = context.Produtos.ToList();
                 foreach (var produto in produtos)
                 {
@@ -31,11 +38,6 @@ namespace Alura.Loja.Testes.ConsoleApp
                 p1.Nome = "Alterado";
                 context.Update(p1);
                 
-                foreach (var item in context.ChangeTracker.Entries())
-                {
-                    Console.WriteLine(item.State);
-                }
-
             }
 
 
