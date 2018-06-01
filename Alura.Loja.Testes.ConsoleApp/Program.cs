@@ -10,63 +10,36 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            GravarUsandoEntity();
-            RecuperarProdutos();
-
-            ExcluirProdutos();
-            RecuperarProdutos();
-
-            GravarUsandoEntity();
-            AtualizarProdutos();
-            RecuperarProdutos();
-
-            Console.ReadKey();
-        }
-
-        private static void AtualizarProdutos()
-        {
-            using (var context = new ProdutoDAOEntity())
+            using (var context = new LojaContext())
             {
-                var produto = context.Selecionar(new Produto()).First();
-                produto.Nome = "Produto editado";
-                context.Atualizar(produto);
-            }
-        }
-
-        private static void ExcluirProdutos()
-        {
-            using (var context = new ProdutoDAOEntity())
-            {
-                var produto = context.Selecionar(new Produto()).First();
-                context.Remover(produto);
-            }
-        }
-
-        private static void RecuperarProdutos()
-        {
-            using (var context = new ProdutoDAOEntity())
-            {
-                var produtos = context.Selecionar(new Produto());
-
-                Console.WriteLine("\n\nProdutos encontrados:\n\n");
+                var produtos = context.Produtos.ToList();
                 foreach (var produto in produtos)
                 {
                     Console.WriteLine(produto.Nome);
                 }
-            }
-        }
 
-        private static void GravarUsandoEntity()
-        {
-            Produto p = new Produto();
-            p.Nome = "Harry Potter e a Ordem da Fênix";
-            p.Categoria = "Livros";
-            p.Preco = 19.89;
+                Console.WriteLine("\n\n===============================\n\n");
 
-            using (var context = new ProdutoDAOEntity())
-            {
-                context.Adicionar(p);
+                foreach (var item in context.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(item.State);
+                }
+
+                Console.WriteLine("\n\n===============================\n\n");
+
+                var p1 = produtos.First();
+                p1.Nome = "Alterado";
+                context.Update(p1);
+                
+                foreach (var item in context.ChangeTracker.Entries())
+                {
+                    Console.WriteLine(item.State);
+                }
+
             }
+
+
+                Console.ReadKey();
         }
     }
 }
