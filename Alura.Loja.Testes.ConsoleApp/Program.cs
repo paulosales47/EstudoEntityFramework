@@ -10,46 +10,45 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //GravarUsandoAdoNet();
-            //GravarUsandoEntity();
+            GravarUsandoEntity();
             RecuperarProdutos();
+
             ExcluirProdutos();
+            RecuperarProdutos();
+
+            GravarUsandoEntity();
+            AtualizarProdutos();
+            RecuperarProdutos();
+
+            Console.ReadKey();
+        }
+
+        private static void AtualizarProdutos()
+        {
+            using (var context = new ProdutoDAOEntity())
+            {
+                var produto = context.Selecionar(new Produto()).First();
+                produto.Nome = "Produto editado";
+                context.Atualizar(produto);
+            }
         }
 
         private static void ExcluirProdutos()
         {
-            using (var context = new LojaContext())
+            using (var context = new ProdutoDAOEntity())
             {
-                using (var contextTransaction = context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        var produtos = context.Produtos.ToList();
-
-                        foreach (var produto in produtos)
-                        {
-                            context.Produtos.Remove(produto);
-                        }
-
-                        context.SaveChanges();
-                        contextTransaction.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        contextTransaction.Rollback();
-                    }
-                }
+                var produto = context.Selecionar(new Produto()).First();
+                context.Remover(produto);
             }
         }
 
         private static void RecuperarProdutos()
         {
-            using (var context = new LojaContext())
+            using (var context = new ProdutoDAOEntity())
             {
-                var produtos = context.Produtos.ToList();
+                var produtos = context.Selecionar(new Produto());
 
-                Console.WriteLine("Foram encontrados {0} produto(s)", produtos.Count);
-
+                Console.WriteLine("\n\nProdutos encontrados:\n\n");
                 foreach (var produto in produtos)
                 {
                     Console.WriteLine(produto.Nome);
@@ -64,41 +63,9 @@ namespace Alura.Loja.Testes.ConsoleApp
             p.Categoria = "Livros";
             p.Preco = 19.89;
 
-            Produto p2 = new Produto();
-            p2.Nome = "Harry Potter e as Reliquias da Morte";
-            p2.Categoria = "Livros";
-            p2.Preco = 19.89;
-
-            using (var context = new LojaContext())
+            using (var context = new ProdutoDAOEntity())
             {
-                using (var contextTransaction = context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        context.Produtos.AddRange(p, p2);
-                        context.SaveChanges();
-                        contextTransaction.Commit();
-                    }
-                    catch (Exception)
-                    {
-                        contextTransaction.Rollback();
-                    }
-                }
-
-
-            }
-        }
-
-        private static void GravarUsandoAdoNet()
-        {
-            Produto p = new Produto();
-            p.Nome = "Harry Potter e a Ordem da Fênix";
-            p.Categoria = "Livros";
-            p.Preco = 19.89;
-
-            using (var repo = new ProdutoDAO())
-            {
-                repo.Adicionar(p);
+                context.Adicionar(p);
             }
         }
     }

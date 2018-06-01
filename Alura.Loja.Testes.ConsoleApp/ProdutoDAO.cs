@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace Alura.Loja.Testes.ConsoleApp
 {
-    internal class ProdutoDAO : IDisposable
+    public class ProdutoDAO : IDisposable, IProdutoDAO
     {
         private SqlConnection conexao;
 
@@ -19,20 +19,20 @@ namespace Alura.Loja.Testes.ConsoleApp
             this.conexao.Close();
         }
 
-        internal void Adicionar(Produto p)
+        public void Adicionar(Produto produto)
         {
             try
             {
                 var insertCmd = conexao.CreateCommand();
                 insertCmd.CommandText = "INSERT INTO Produtos (Nome, Categoria, Preco) VALUES (@nome, @categoria, @preco)";
 
-                var paramNome = new SqlParameter("nome", p.Nome);
+                var paramNome = new SqlParameter("nome", produto.Nome);
                 insertCmd.Parameters.Add(paramNome);
 
-                var paramCategoria = new SqlParameter("categoria", p.Categoria);
+                var paramCategoria = new SqlParameter("categoria", produto.Categoria);
                 insertCmd.Parameters.Add(paramCategoria);
 
-                var paramPreco = new SqlParameter("preco", p.Preco);
+                var paramPreco = new SqlParameter("preco", produto.Preco);
                 insertCmd.Parameters.Add(paramPreco);
 
                 insertCmd.ExecuteNonQuery();
@@ -42,17 +42,17 @@ namespace Alura.Loja.Testes.ConsoleApp
             }
         }
 
-        internal void Atualizar(Produto p)
+        public void Atualizar(Produto produto)
         {
             try
             {
                 var updateCmd = conexao.CreateCommand();
                 updateCmd.CommandText = "UPDATE Produtos SET Nome = @nome, Categoria = @categoria, Preco = @preco WHERE Id = @id";
 
-                var paramNome = new SqlParameter("nome", p.Nome);
-                var paramCategoria = new SqlParameter("categoria", p.Categoria);
-                var paramPreco = new SqlParameter("preco", p.Preco);
-                var paramId = new SqlParameter("id", p.Id);
+                var paramNome = new SqlParameter("nome", produto.Nome);
+                var paramCategoria = new SqlParameter("categoria", produto.Categoria);
+                var paramPreco = new SqlParameter("preco", produto.Preco);
+                var paramId = new SqlParameter("id", produto.Id);
                 updateCmd.Parameters.Add(paramNome);
                 updateCmd.Parameters.Add(paramCategoria);
                 updateCmd.Parameters.Add(paramPreco);
@@ -66,14 +66,14 @@ namespace Alura.Loja.Testes.ConsoleApp
             }
         }
 
-        internal void Remover(Produto p)
+        public void Remover(Produto produto)
         {
             try
             {
                 var deleteCmd = conexao.CreateCommand();
                 deleteCmd.CommandText = "DELETE FROM Produtos WHERE Id = @id";
 
-                var paramId = new SqlParameter("id", p.Id);
+                var paramId = new SqlParameter("id", produto.Id);
                 deleteCmd.Parameters.Add(paramId);
 
                 deleteCmd.ExecuteNonQuery();
@@ -84,7 +84,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             }
         }
 
-        internal IList<Produto> Produtos()
+        public IList<Produto> Selecionar(Produto produto)
         {
             var lista = new List<Produto>();
 
