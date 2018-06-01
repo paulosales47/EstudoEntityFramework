@@ -21,13 +21,18 @@ namespace Alura.Loja.Testes.ConsoleApp
             p.Categoria = "Livros";
             p.Preco = 19.89;
 
+            Produto p2 = new Produto();
+            p2.Nome = "Harry Potter e as Reliquias da Morte";
+            p2.Categoria = "Livros";
+            p2.Preco = 19.89;
+
             using (var context = new LojaContext())
             {
                 using (var contextTransaction = context.Database.BeginTransaction())
                 {
                     try
                     {
-                        context.Produtos.Add(p);
+                        context.Produtos.AddRange(p, p2);
                         context.SaveChanges();
                         contextTransaction.Commit();
                     }
