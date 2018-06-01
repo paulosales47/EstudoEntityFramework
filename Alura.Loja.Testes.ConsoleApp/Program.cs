@@ -20,20 +20,27 @@ namespace Alura.Loja.Testes.ConsoleApp
 
                 var p1 = new Produto
                 {
-                    Nome = "Novo produto"
+                    Nome = "teste"
                     ,
-                    Preco = 78.8
+                    Preco = 999.99
                     ,
                     Categoria = "Sem categoria"
                 };
 
-                context.Add(p1);
+                context.Produtos.Add(p1);
+
+                ExibeEstadoProduto(entityEntries);
+
+                context.Produtos.Remove(p1);
 
                 ExibeEstadoProduto(entityEntries);
 
                 context.SaveChanges();
 
                 ExibeEstadoProduto(entityEntries);
+
+                var entry = context.Entry(p1);
+                Console.WriteLine("\n\n" + entry.State +  "- " + entry.Entity.ToString());
 
             }
             
