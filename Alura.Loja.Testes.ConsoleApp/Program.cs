@@ -22,7 +22,7 @@ namespace Alura.Loja.Testes.ConsoleApp
                 {
                     Nome = "teste"
                     ,
-                    Preco = 999.99
+                    PrecoUnitario = 999.99
                     ,
                     Categoria = "Sem categoria"
                 };
