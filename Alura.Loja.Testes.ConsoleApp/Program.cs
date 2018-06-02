@@ -11,50 +11,23 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            using (var context = new LojaContext())
+            var produto = new Produto
             {
-                context.Produtos.ToList();
-                var  entityEntries = context.ChangeTracker.Entries();
+                Nome = "Pão"
+                ,
+                Categoria = "Alimento"
+                ,
+                PrecoUnitario = 0.40
+                ,
+                Unidade = "Unidade"
+            };
 
-                ExibeEstadoProduto(entityEntries);
-
-                var p1 = new Produto
-                {
-                    Nome = "teste"
-                    ,
-                    PrecoUnitario = 999.99
-                    ,
-                    Categoria = "Sem categoria"
-                };
-
-                context.Produtos.Add(p1);
-
-                ExibeEstadoProduto(entityEntries);
-
-                context.Produtos.Remove(p1);
-
-                ExibeEstadoProduto(entityEntries);
-
-                context.SaveChanges();
-
-                ExibeEstadoProduto(entityEntries);
-
-                var entry = context.Entry(p1);
-                Console.WriteLine("\n\n" + entry.State +  "- " + entry.Entity.ToString());
-
-            }
-            
-            Console.ReadKey();
-        }
-
-        private static void ExibeEstadoProduto(IEnumerable<EntityEntry> entityEntries)
-        {
-            Console.WriteLine("\n=========================================\n");
-            foreach (var item in entityEntries)
+            var compra = new Compra
             {
-                Console.WriteLine(item.State + " - " + item.Entity.ToString());
-            }
-            
+                Produto = produto
+                ,
+                Quantidade = 10
+            };
         }
     }
 }
