@@ -15,6 +15,7 @@ namespace Alura.Loja.Testes.ConsoleApp
         public double  Preco
         {
             get { return (Quantidade * Produto.PrecoUnitario); }
+            internal set { }
         }
 
 

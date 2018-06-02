@@ -13,11 +13,11 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             var produto = new Produto
             {
-                Nome = "Pão"
+                Nome = "Carro"
                 ,
-                Categoria = "Alimento"
+                Categoria = "Veiculo"
                 ,
-                PrecoUnitario = 0.40
+                PrecoUnitario = 45999.99
                 ,
                 Unidade = "Unidade"
             };
@@ -26,7 +26,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             {
                 Produto = produto
                 ,
-                Quantidade = 10
+                Quantidade = 2
             };
 
             using (var contexto = new LojaContext())
