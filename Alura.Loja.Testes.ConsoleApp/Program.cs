@@ -22,17 +22,33 @@ namespace Alura.Loja.Testes.ConsoleApp
                 Unidade = "Unidade"
             };
 
-            var compra = new Compra
+            var produto2 = new Produto
             {
-                Produto = produto
+                Nome = "Suco"
                 ,
-                Quantidade = 2
+                Categoria = "Bebidas"
+                ,
+                PrecoUnitario = 15.70
+                ,
+                Unidade = "Litros"
             };
 
-            using (var contexto = new LojaContext())
+            var promocao = new Promocao
             {
-                contexto.Compras.Add(compra);
-                contexto.SaveChanges();
+                Descricao = "Natal"
+                ,
+                DtInicio = DateTime.Now
+                ,
+                DtTermino = DateTime.Now.AddDays(10)
+            };
+
+            promocao.AdicionaProduto(produto);
+            promocao.AdicionaProduto(produto2);
+
+            using (var context = new LojaContext())
+            {
+                context.Promocoes.Add(promocao);
+                context.SaveChanges();
             }
         }
     }
