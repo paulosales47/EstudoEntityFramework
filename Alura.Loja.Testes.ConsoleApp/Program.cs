@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +12,26 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var endereco = new Endereco
-            {
-                Logradouro = "Praça primeiro de maio"
-                ,
-                Bairro = "PQ. Novo Horizonte"
-                ,
-                Cidade = "SJC"
-            };
-
-            var cliente = new Cliente
-            {
-                Nome = "Paulo Sampaio"
-                ,
-                EnderecoEntrega = endereco
-            };
-            
             using (var context = new LojaContext())
             {
-                context.Clientes.Add(cliente);
-                context.SaveChanges();
+                var p1 = context
+                    .Promocoes
+                    .Include(p => p.Produtos)
+                    .ThenInclude(pp => pp.Produto)
+                    .FirstOrDefault();
+
+                    
+
+                Console.WriteLine("Lista de produtos da promoção:\n");
+                foreach (var produto in p1.Produtos)
+                {
+                    Console.WriteLine(produto.Produto.Nome);
+                }
+
+                
             }
+
+            Console.ReadKey();
         }
     }
 }
