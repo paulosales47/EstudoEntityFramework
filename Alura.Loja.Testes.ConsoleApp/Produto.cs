@@ -10,6 +10,7 @@ namespace Alura.Loja.Testes.ConsoleApp
         public double PrecoUnitario { get; internal set; }
         public string Unidade { get; internal set; }
         public IList<PromocaoProduto> Promocoes { get; set; }
+        public IList<Compra> Compras { get; set; }
         public override string ToString()
         {
             return $"Produto: ID: {this.Id}, NOME: {this.Nome}, CATEGORIA: {this.Categoria}, PREÇO: {this.PrecoUnitario}";
@@ -18,6 +19,7 @@ namespace Alura.Loja.Testes.ConsoleApp
         public Produto()
         {
             this.Promocoes = new List<PromocaoProduto>();
+            this.Compras = new List<Compra>();
         }
 
     }

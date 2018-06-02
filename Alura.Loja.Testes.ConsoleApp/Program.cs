@@ -14,21 +14,27 @@ namespace Alura.Loja.Testes.ConsoleApp
         {
             using (var context = new LojaContext())
             {
-                var p1 = context
-                    .Promocoes
-                    .Include(p => p.Produtos)
-                    .ThenInclude(pp => pp.Produto)
-                    .FirstOrDefault();
 
-                    
+                var produto = context
+                    .Produtos
+                    .Where(p => p.Id == 5002)
+                    .First();
 
-                Console.WriteLine("Lista de produtos da promoção:\n");
-                foreach (var produto in p1.Produtos)
+                context.Entry(produto)
+                    .Collection(p => p.Compras)
+                    .Query()
+                    .Where(c => c.Id == 1002)
+                    .Load();
+                
+                
+                
+                Console.WriteLine($"Total em vendas do produto {produto.Nome}");
+                foreach (var compra in produto.Compras)
                 {
-                    Console.WriteLine(produto.Produto.Nome);
+                    Console.WriteLine(compra.Preco);
                 }
 
-                
+
             }
 
             Console.ReadKey();
