@@ -28,6 +28,12 @@ namespace Alura.Loja.Testes.ConsoleApp
                 ,
                 Quantidade = 10
             };
+
+            using (var contexto = new LojaContext())
+            {
+                contexto.Compras.Add(compra);
+                contexto.SaveChanges();
+            }
         }
     }
 }
