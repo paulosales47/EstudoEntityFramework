@@ -12,6 +12,12 @@ namespace Alura.Loja.Testes.ConsoleApp
         public Promocao Promocao { get; set; }
         public int ProdutoId { get; set; }
         public int PromocaoId { get; set; }
-        
+
+        public PromocaoProduto()
+        {
+            this.Produto = new Produto();
+            this.Promocao = new Promocao();
+
+        }
     }
 }

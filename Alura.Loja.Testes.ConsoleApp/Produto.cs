@@ -15,5 +15,10 @@ namespace Alura.Loja.Testes.ConsoleApp
             return $"Produto: ID: {this.Id}, NOME: {this.Nome}, CATEGORIA: {this.Categoria}, PREÇO: {this.PrecoUnitario}";
         }
 
+        public Produto()
+        {
+            this.Promocoes = new List<PromocaoProduto>();
+        }
+
     }
 }

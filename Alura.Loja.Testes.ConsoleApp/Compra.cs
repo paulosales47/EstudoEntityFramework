@@ -18,6 +18,10 @@ namespace Alura.Loja.Testes.ConsoleApp
             internal set { }
         }
 
+        public Compra()
+        {
+            this.Produto = new Produto();
+        }
 
 
     }

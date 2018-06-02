@@ -11,43 +11,25 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var produto = new Produto
+            var endereco = new Endereco
             {
-                Nome = "Carro"
+                Logradouro = "Praça primeiro de maio"
                 ,
-                Categoria = "Veiculo"
+                Bairro = "PQ. Novo Horizonte"
                 ,
-                PrecoUnitario = 45999.99
-                ,
-                Unidade = "Unidade"
+                Cidade = "SJC"
             };
 
-            var produto2 = new Produto
+            var cliente = new Cliente
             {
-                Nome = "Suco"
+                Nome = "Paulo Sampaio"
                 ,
-                Categoria = "Bebidas"
-                ,
-                PrecoUnitario = 15.70
-                ,
-                Unidade = "Litros"
+                EnderecoEntrega = endereco
             };
-
-            var promocao = new Promocao
-            {
-                Descricao = "Natal"
-                ,
-                DtInicio = DateTime.Now
-                ,
-                DtTermino = DateTime.Now.AddDays(10)
-            };
-
-            promocao.AdicionaProduto(produto);
-            promocao.AdicionaProduto(produto2);
-
+            
             using (var context = new LojaContext())
             {
-                context.Promocoes.Add(promocao);
+                context.Clientes.Add(cliente);
                 context.SaveChanges();
             }
         }
