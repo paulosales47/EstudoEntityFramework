@@ -9,11 +9,12 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Alura.Loja.Testes.ConsoleApp</RootNamespace>
     <AssemblyName>Alura.Loja.Testes.ConsoleApp</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -144,10 +145,16 @@
     <Compile Include="Migrations\20180602144506_PrecoCompra.designer.cs">
       <DependentUpon>20180602144506_PrecoCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20180602152112_Promocao.cs" />
+    <Compile Include="Migrations\20180602152112_Promocao.designer.cs">
+      <DependentUpon>20180602152112_Promocao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\LojaContextModelSnapshot.cs" />
     <Compile Include="Produto.cs" />
     <Compile Include="ProdutoDAOEntity.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Promocao.cs" />
+    <Compile Include="PromocaoProduto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlLoggerProvider.cs" />
   </ItemGroup>
